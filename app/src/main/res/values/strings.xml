@@ -1,12 +1,15 @@
 <resources>
-    <string name="moviePoster"> </string>
+    <string name="moviePoster">Movie Poster</string>
     <string name="app_name">Movie App</string>
     <string name="movie_Title">Whiplash</string>
     <string name="ratingBar"> </string>
     <string name="movieGenre">Drama, Music</string>
-    <string name="movieDirector">Director: Damien Chazelle</string>
-    <string name="movieActors">Actors: Miles Teller, J.K. Simmons</string>
+    <string name="movieDirector">Director:</string>
+    <string name="movieActors">Actors:</string>
     <string name="storyHead">Story</string>
     <string name="storyText">Story Description</string>
     <string name="floatingActionButton">Action</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="app_title">My Movie App</string>
+    <string name="see_detail">See detail</string>
 </resources>

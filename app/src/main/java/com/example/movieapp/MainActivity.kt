@@ -2,28 +2,30 @@ package com.example.movieapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.movieapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var navController: NavController
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
-    private val movie: Movie = Movie()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.movie = movie
+        drawerLayout = binding.drawerLayout
+        navController = this.findNavController(R.id.navhostFragment)
 
-        val actionButton: FloatingActionButton = findViewById(R.id.floatingActionButton)
-        actionButton.setOnClickListener{ actionOnButton() }
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
-    private fun actionOnButton() {
-        Toast.makeText(this, "You just pushed a Button! Nice.",
-            Toast.LENGTH_SHORT).show()
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, drawerLayout)
     }
 }
