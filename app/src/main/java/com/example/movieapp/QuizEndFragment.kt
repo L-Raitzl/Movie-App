@@ -1,41 +1,38 @@
 package com.example.movieapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.movieapp.databinding.FragmentQuizEndBinding
+import com.example.movieapp.viewmodels.QuizEndViewModel
 
 
 class QuizEndFragment : Fragment() {
     private lateinit var binding: FragmentQuizEndBinding
-    private val args: QuizEndFragmentArgs by navArgs()
-
+    private lateinit var viewModelQuizEnd: QuizEndViewModel
+    private lateinit var factoryQuizEnd: QuizEndFactory
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_quiz_end, container, false)
 
-        // get score from navigation arguments
-        val score = args.score
-        val numberQuestions = args.numberQuestions
+        val argumentScore = QuizEndFragmentArgs.fromBundle(requireArguments()).score
+        val argQuestionsCount = QuizEndFragmentArgs.fromBundle(requireArguments()).numberQuestions
 
-        // show score
-        val summary = "$score/$numberQuestions"
-        binding.textView7.text = summary
-
-        // on "RESTART" button pressed
+        factoryQuizEnd =
+                QuizEndFactory(requireActivity().application, argumentScore, argQuestionsCount)
+        viewModelQuizEnd = ViewModelProvider(this, factoryQuizEnd).get(QuizEndViewModel::class.java)
+        binding.textView7.text = "${viewModelQuizEnd.Score.value}/${viewModelQuizEnd.NumberOfQuestions.value}"
         binding.btnRestart.setOnClickListener {
-            restartQuiz()
+            val switchToFragment = QuizEndFragmentDirections.actionQuizEndFragmentToQuizFragment()
+            findNavController().navigate(switchToFragment)
         }
         return binding.root
-    }
-
-    private fun restartQuiz() {
-        activity?.onBackPressed()
     }
 }
