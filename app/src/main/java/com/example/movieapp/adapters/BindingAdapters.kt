@@ -1,4 +1,4 @@
-package com.example.mad03_fragments_and_navigation.utils
+package com.example.movieapp.adapters
 
 import android.widget.ImageView
 import android.widget.TextView

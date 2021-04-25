@@ -8,7 +8,7 @@
     <data>
         <variable
             name="movie"
-            type="com.example.movieapp.Movie" />
+            type="com.example.movieapp.models.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
