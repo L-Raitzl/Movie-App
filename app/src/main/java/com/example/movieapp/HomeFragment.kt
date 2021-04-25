@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.movieapp.databinding.FragmentHomeBinding
+import com.example.movieapp.models.MovieStore
 
 
 class HomeFragment : Fragment() {
@@ -19,32 +20,25 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.movies = MovieStore()
+        setHasOptionsMenu(true) // enable the options menu in the action bar
 
-        setHasOptionsMenu(true)
+        val adapter = MovieListAdapter()    // instantiate a new MovieListAdapter for recyclerView
+        binding.movieList.adapter = adapter // assign adapter to the recyclerView
 
-        subscribeUI()
+        subscribeUI(adapter)
 
         return binding.root
     }
 
-    private fun subscribeUI(){
-        binding.movie1Btn.setOnClickListener {
-            navigateToDetail(0)
-        }
-
-        binding.movie2Btn.setOnClickListener {
-            navigateToDetail(1)
-        }
-
-        binding.movie3Btn.setOnClickListener {
-            navigateToDetail(2)
-        }
+    private fun subscribeUI(adapter: MovieListAdapter){
+        val movieList = MovieStore()
+        adapter.submitList(movieList.defaultMovies) // submit the statically generated movielist to the recyclerView
     }
 
+    /*
     private fun navigateToDetail(movieIdx: Int = 0){
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(movieIdx))
-    }
+    } */
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.

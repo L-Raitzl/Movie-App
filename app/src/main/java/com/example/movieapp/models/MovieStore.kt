@@ -1,9 +1,15 @@
-package com.example.movieapp
+package com.example.movieapp.models
+
+import com.example.movieapp.R
 
 
 data class MovieStore(val myMovies: MutableList<Movie> = mutableListOf()){
 
     val defaultMovies = exampleMovies
+
+    fun findMovieByUUID(uuid: String): Movie? {
+        return defaultMovies.find { movie -> movie.id.toString() == uuid }
+    }
 
     companion object{
         val exampleMovies: MutableList<Movie> = createStaticMovieList()
@@ -21,7 +27,7 @@ data class MovieStore(val myMovies: MutableList<Movie> = mutableListOf()){
             movie1.actors.addAll(listOf("Miles Teller", "J.K. Simmons"))
             movie1.genre = listOf("Drama", "Music")
             movie1.director.add("Damien Chazelle")
-            movie1.rating = 4.5F
+            movie1.rating = 5.0F
             movie1.imageId = R.drawable.posterwhiplash
 
             val movie2 = Movie("Cleopatra", "In 47 BC, Egypt is in civil war. Cleopatra VII, Egypt's rightful Queen, is in exile, while her sister Arsinoe and brother, Ptolemy have stolen the throne. Roman general Julius Caesar comes to Alexandria to collect Egypt's tax debt. Cleopatra smuggles herself into the palace wrapped in a carpet; a gift from her to Caesar. The two spend the night together, and the next morning, Cleopatra and Ptolemy are betrothed to marry by Caesar. Cleopatra is proclaimed Queen of Egypt. Caesar then orders the death of the unscrupulous Prime Minister Pothinus, prompting Ptolemy and Arsinoe to flee and return with their army to drive their sister out of Alexandria.\n" +
@@ -41,7 +47,7 @@ data class MovieStore(val myMovies: MutableList<Movie> = mutableListOf()){
             movie3.actors.addAll(listOf("Harrison Ford", "Karen Allen"))
             movie3.genre = listOf("Adventure", "Action")
             movie3.director.add("Steven Spielberg")
-            movie3.rating = 5.0F
+            movie3.rating = 4.5F
             movie3.imageId = R.drawable.posterraidersofthelostarc
 
             list.add(movie1)

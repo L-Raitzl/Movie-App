@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.databinding.FragmentDetailBinding
+import com.example.movieapp.models.MovieStore
 
 
 class DetailFragment : Fragment() {
@@ -21,18 +22,17 @@ class DetailFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
 
         val args = DetailFragmentArgs.fromBundle(requireArguments())
-        val movies = MovieStore().defaultMovies
 
-        when(val movieEntry = movies.getOrNull(args.movieIndex)){
+        when(val movieEntry = MovieStore().findMovieByUUID(args.movieId)){
             null -> {
-                Toast.makeText(requireContext(), "Not able to load data.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Could not load movie data.", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             }
             else -> binding.movie = movieEntry
         }
 
         binding.addToFavorites.setOnClickListener {
-            Toast.makeText(requireContext(), "Saved to favorites.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Movie saved to favorites.", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

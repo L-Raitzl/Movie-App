@@ -1,9 +1,13 @@
-package com.example.movieapp
+package com.example.movieapp.models
+
+import com.example.movieapp.R
+import java.util.*
 
 data class Movie (
     var title: String = "",
     var story: String = ""
 ) {
+    val id: UUID = UUID.randomUUID()
     var rating: Float = 0.0f
         set(value) {
             if(value in 0.0..5.0) field = value
